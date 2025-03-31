@@ -1,16 +1,19 @@
 ﻿using System;
 
-public class Logo
+namespace voice_greeting
 {
-    private readonly string _logoArt;
-
-    public Logo(string logoArt)
+    public class Logo
     {
-        _logoArt = logoArt;
-    }
+        private readonly string _logoArt;
 
-    public void Display()
-    {
-        Console.WriteLine(_logoArt);
+        public Logo(string logoArt)
+        {
+            _logoArt = logoArt;
+        }
+
+        public void Display()
+        {
+            Console.WriteLine(_logoArt);
+        }
     }
 }

@@ -1,29 +1,32 @@
-﻿using System.IO;
+﻿using System;
 using System.Media;
-using System;
+using System.IO;
 
-public class welcome_message
+namespace voice_greeting
 {
-    public void Play()
+    public class welcome_message
     {
-        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string wavFilePath = Path.Combine(baseDirectory, "greeting.wav");
+        public void Play()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string wavFilePath = Path.Combine(baseDirectory, "greeting.wav");
 
-        try
-        {
-            using (SoundPlayer player = new SoundPlayer(wavFilePath))
+            try
             {
-                player.Load();
-                player.PlaySync();
+                using (SoundPlayer player = new SoundPlayer(wavFilePath))
+                {
+                    player.Load();
+                    player.PlaySync();
+                }
             }
-        }
-        catch (FileNotFoundException)
-        {
-            Console.WriteLine("Warning: Greeting audio file ('greeting.wav') not found. Continuing without audio.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error playing voice greeting: {ex.Message}");
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Warning: Greeting audio file ('greeting.wav') not found. Continuing without audio.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error playing voice greeting: {ex.Message}");
+            }
         }
     }
 }
