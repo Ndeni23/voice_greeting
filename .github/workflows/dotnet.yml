@@ -20,7 +20,7 @@ jobs:
         dotnet-version: '9.0.x' # Adjust if needed
      
      - name: Restore Dependencies
-       run: dotnet restore "voice_greeting..sln"
+       run: dotnet restore "voice_greeting.sln"
   
      - name: Build Solution
        run: dotnet build "voice_greeting.sln" --configuration ${{ matrix.configuration }} --no-restore
