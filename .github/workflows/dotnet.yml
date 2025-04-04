@@ -1,0 +1,35 @@
+name: .NET CI
+
+on: [push, pull_request]
+  
+jobs:
+  build:
+     runs-on: windows-latest
+      
+     strategy:
+       matrix:
+        configuration: [Debug, Release]
+  
+     steps:
+     - name: Checkout code
+       uses: actions/checkout@v4
+
+     - name: Setup .NET
+       uses: actions/setup-dotnet@v3
+       with:
+        dotnet-version: '9.0.x' # Adjust if needed
+     
+     - name: Restore Dependencies
+       run: dotnet restore "CyberSecurityBot.sln"
+  
+     - name: Build Solution
+       run: dotnet build "CyberSecurityBot.sln" --configuration ${{ matrix.configuration }} --no-restore
+  
+     - name: Execute Unit Tests
+       run: dotnet test "CyberSecurityBot.sln" --configuration ${{ matrix.configuration }} --no-restore --verbosity normal
+  
+     - name: Upload Build Artifacts
+       uses: actions/upload-artifact@v4
+       with:
+        name: Build Output - ${{ matrix.configuration }}
+        path: bin/${{ matrix.configuration }}/
